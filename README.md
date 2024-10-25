@@ -1,4 +1,4 @@
-# AI Image Generator & Chat
+# AI Image Generator
 
 ## Getting Started
 
