@@ -1,4 +1,5 @@
 # AI Image Generator
+NextJS application for generating images using AI.
 
 ## Getting Started
 
@@ -9,3 +10,10 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+---
+## What we use
+
+- [NextJS 15](https://nextjs.org/)
+- [ShadCN UI](https://ui.shadcn.com/)
+- [TailwindCSS](https://tailwindcss.com/)
