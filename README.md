@@ -17,3 +17,4 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - [NextJS 15](https://nextjs.org/)
 - [ShadCN UI](https://ui.shadcn.com/)
 - [TailwindCSS](https://tailwindcss.com/)
+- [Clerk](https://clerk.com/) - for authentication.

@@ -31,8 +31,7 @@ function HeroImageSlider() {
       <Image
         src={currentImage}
         alt="ai image generator"
-        layout="fill"
-        objectFit="cover"
+        fill
         className="rounded-[20px]"
       />
       <ThumbnailRow setCurrentImage={setCurrentImage} />
