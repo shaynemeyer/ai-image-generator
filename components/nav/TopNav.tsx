@@ -7,7 +7,6 @@ import { Toaster } from "../ui/toaster";
 function TopNav() {
   return (
     <div className="flex items-center justify-between p-5 shadow">
-      <Toaster />
       <div className="text-2xl font-bold">
         <Link href="/">
           <Image src="images/logo.svg" alt="logo" width={50} height={50} />
@@ -22,6 +21,7 @@ function TopNav() {
         <SignedIn>
           <UserButton />
         </SignedIn>
+        <Toaster />
       </div>
     </div>
   );

@@ -1,24 +1,16 @@
 "use client";
 
-import { useToast } from "@/hooks/use-toast";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import { useImage } from "@/context/Image";
 
 function GenerateImageInput() {
-  const { toast } = useToast();
+  const { generateImage } = useImage();
 
   return (
     <div className="mb-5 flex space-x-2">
       <Input placeholder="Mountain lookout" className="p-6" />
-      <Button
-        className="p-6"
-        onClick={() => {
-          toast({
-            title: "You are great!",
-            description: "You have done something really wonderful!",
-          });
-        }}
-      >
+      <Button className="p-6" onClick={generateImage}>
         Generate Image
       </Button>
     </div>
