@@ -52,12 +52,7 @@ const ThumbnailRow = ({ setCurrentImage }: ThumbnailRowProps) => {
           className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-[20px] overflow-hidden shadow-md transition-transform transform hover:scale-105 flex-shrink-0 cursor-pointer"
           onClick={() => setCurrentImage(src)}
         >
-          <Image
-            src={src}
-            alt={`Thumbnail ${index + 1}`}
-            objectFit="cover"
-            layout="fill"
-          />
+          <Image src={src} alt={`Thumbnail ${index + 1}`} fill />
         </div>
       ))}
     </div>

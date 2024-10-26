@@ -18,3 +18,4 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - [ShadCN UI](https://ui.shadcn.com/)
 - [TailwindCSS](https://tailwindcss.com/)
 - [Clerk](https://clerk.com/) - for authentication.
+- [React Hot Toast](npm install react-hot-toast) - 
