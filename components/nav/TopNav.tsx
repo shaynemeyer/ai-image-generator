@@ -4,6 +4,7 @@ import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { LaptopMinimal, LogIn } from "lucide-react";
 import { Toaster } from "../ui/toaster";
 import { currentUser } from "@clerk/nextjs/server";
+import { ModeToggle } from "./ModeToggle";
 
 async function TopNav() {
   const user = await currentUser();
@@ -32,6 +33,7 @@ async function TopNav() {
           <UserButton />
         </SignedIn>
         <Toaster />
+        <ModeToggle />
       </div>
     </div>
   );
