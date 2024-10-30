@@ -1,5 +1,8 @@
 "use server";
 import { getUserImagesFromDb } from "@/actions/image";
+import ImageCard from "@/components/cards/ImageCard";
+import { ImageType } from "@/types/image";
+import Link from "next/link";
 
 interface DashboardProps {
   searchParams: {
@@ -18,6 +21,8 @@ async function DashboardPage({ searchParams }: DashboardProps) {
     console.log(totalPages);
   }
 
+  if (!result) return null;
+
   return (
     <div>
       <div className="p-5 text-center">
@@ -25,7 +30,15 @@ async function DashboardPage({ searchParams }: DashboardProps) {
         <p>Your Ai-Generated Image Collection</p>
       </div>
 
-      {result && <div>{JSON.stringify(result.images, null, 4)}</div>}
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {result.images.map((image) => {
+          return (
+            <Link href={`/dashboard/image/${image.id}`} key={image.id}>
+              <ImageCard image={image as unknown as ImageType} />
+            </Link>
+          );
+        })}
+      </div>
     </div>
   );
 }

@@ -80,7 +80,7 @@ export async function generateImageAi({
       .values({
         userEmail,
         userName,
-        name: uploadResponse.original_filename,
+        name: imagePrompt,
         imagePrompt,
         url: cloudinaryUrl,
       })
