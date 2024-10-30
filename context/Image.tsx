@@ -2,6 +2,8 @@
 import React from "react";
 import { toast } from "@/hooks/use-toast";
 import { generateImageAi } from "@/actions/image";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 // interface ImageType {
 //   imageUrl: string;
@@ -12,7 +14,7 @@ interface ImageContextType {
   setImagePrompt: (query: string) => void;
   loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  generateImage: () => void;
+  generateImage: (e: React.FormEvent) => void;
 }
 
 const ImageContext = React.createContext<ImageContextType | undefined>(
@@ -23,12 +25,27 @@ export const ImageProvider = ({ children }: { children: React.ReactNode }) => {
   // state
   const [imagePrompt, setImagePrompt] = React.useState("");
   const [loading, setLoading] = React.useState(false);
+  const { isSignedIn } = useUser();
+  const router = useRouter();
 
   // functions
-  const generateImage = async () => {
-    // generate image with ai
+  const generateImage = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    if (!isSignedIn) {
+      toast({
+        description: "Please login to generate image",
+        variant: "destructive",
+      });
+      setLoading(false);
+    }
+
     try {
-      await generateImageAi();
+      const result = await generateImageAi({ imagePrompt });
+      if (result.id) {
+        router.push(`/dashboard/image/${result.id}`);
+      }
     } catch (error) {
       toast({
         description: "Failed to generate image",

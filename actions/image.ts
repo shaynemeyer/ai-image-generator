@@ -9,6 +9,7 @@ import { nanoid } from "nanoid";
 import { db } from "@/db/drizzle";
 import { images } from "@/db/schema/image";
 import { currentUserDetails } from "./user";
+import { sql } from "drizzle-orm";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -90,8 +91,31 @@ export async function generateImageAi({
   }
 
   if (imageId > 0) {
-    return imageId;
+    return { id: imageId, success: true };
   }
 
   redirect("/error");
+}
+
+export async function getUserImagesFromDb(
+  page: number = 1,
+  limit: number = 10
+) {
+  const { userEmail } = await currentUserDetails();
+
+  try {
+    const result = await db
+      .select()
+      .from(images)
+      .where(sql`user_email=${userEmail}`)
+      .orderBy(images.id)
+      .limit(limit)
+      .offset((page - 1) * limit);
+    return {
+      images: result,
+      totalCount: result.length,
+    };
+  } catch (error) {
+    renderError(error);
+  }
 }
