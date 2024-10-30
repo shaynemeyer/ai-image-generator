@@ -1,8 +1,10 @@
 "use server";
 import { getUserImagesFromDb } from "@/actions/image";
 import ImageCard from "@/components/cards/ImageCard";
+import Pagination from "@/components/nav/Pagination";
 import { ImageType } from "@/types/image";
 import Link from "next/link";
+import React from "react";
 
 interface DashboardProps {
   searchParams: {
@@ -14,14 +16,13 @@ async function DashboardPage({ searchParams }: DashboardProps) {
   const page = searchParams.page
     ? parseInt(searchParams as unknown as string, 10)
     : 1;
-  const limit = 3;
+  const limit = 2;
   const result = await getUserImagesFromDb(page, limit);
-  if (result) {
-    const totalPages = Math.ceil(result?.totalCount / limit);
-    console.log(totalPages);
-  }
 
   if (!result) return null;
+
+  const totalPages = Math.ceil(result?.totalCount / limit);
+  console.log("TotalPages: ", totalPages);
 
   return (
     <div>
@@ -38,6 +39,10 @@ async function DashboardPage({ searchParams }: DashboardProps) {
             </Link>
           );
         })}
+      </div>
+
+      <div>
+        <Pagination page={page} totalPages={totalPages} />
       </div>
     </div>
   );

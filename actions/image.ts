@@ -104,13 +104,16 @@ export async function getUserImagesFromDb(
   const { userEmail } = await currentUserDetails();
 
   try {
+    const offset = (page - 1) * limit;
     const result = await db
       .select()
       .from(images)
       .where(sql`user_email=${userEmail}`)
       .orderBy(images.id)
       .limit(limit)
-      .offset((page - 1) * limit);
+      .offset(offset);
+
+    console.log(userEmail, offset, result);
     return {
       images: result,
       totalCount: result.length,
