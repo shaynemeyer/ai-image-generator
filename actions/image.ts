@@ -6,6 +6,9 @@ import { v2 as cloudinary, UploadApiResponse } from "cloudinary";
 import OpenAI from "openai";
 const openai = new OpenAI();
 import { nanoid } from "nanoid";
+import { db } from "@/db/drizzle";
+import { images } from "@/db/schema/image";
+import { currentUserDetails } from "./user";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -15,18 +18,36 @@ cloudinary.config({
 
 const cloudinaryFolder = process.env.CLOUDINARY_API_FOLDER;
 
-export async function generateImageAi() {
+const renderError = (error: unknown): { message: string } => {
+  console.log(error);
+  return {
+    message: error instanceof Error ? error.message : "An error occurred",
+  };
+};
+
+export async function generateImageAi({
+  imagePrompt,
+}: {
+  imagePrompt: string;
+}) {
   // to redirect user to login if not signed in
   await auth.protect();
 
+  const { userEmail, userName } = await currentUserDetails();
+
+  if (!userEmail) {
+    throw new Error("Please login to generate image");
+  }
+
+  let imageId = 0;
+
   try {
     const image = await openai.images.generate({
-      prompt:
-        "A beautiful mountain lookout with a clear sky and a lake in the background",
+      prompt: imagePrompt,
     });
 
     const imageUrl = image.data[0].url as string;
-    console.log(imageUrl);
+
     // convert the stream to a buffer
     const response = await fetch(imageUrl);
     const buffer = await response.arrayBuffer();
@@ -52,11 +73,25 @@ export async function generateImageAi() {
     );
 
     const cloudinaryUrl = uploadResponse.secure_url;
-    console.log(cloudinaryUrl);
+
+    const imageResult = await db
+      .insert(images)
+      .values({
+        userEmail,
+        userName,
+        name: uploadResponse.original_filename,
+        imagePrompt,
+        url: cloudinaryUrl,
+      })
+      .returning();
+    imageId = imageResult[0].id!;
   } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(error?.message);
-    }
-    redirect("/");
+    renderError(error);
   }
+
+  if (imageId > 0) {
+    return imageId;
+  }
+
+  redirect("/error");
 }
