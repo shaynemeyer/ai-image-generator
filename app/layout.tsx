@@ -5,6 +5,7 @@ import TopNav from "@/components/nav/TopNav";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ImageProvider } from "@/context/Image";
 import { ThemeProvider } from "@/context/theme";
+import PaypalProvider from "@/context/Paypal";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -39,10 +40,12 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <ImageProvider>
-              <TopNav />
-              {children}
-            </ImageProvider>
+            <PaypalProvider>
+              <ImageProvider>
+                <TopNav />
+                {children}
+              </ImageProvider>
+            </PaypalProvider>
           </ThemeProvider>
         </body>
       </html>
