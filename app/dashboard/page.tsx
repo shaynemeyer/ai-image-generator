@@ -13,8 +13,8 @@ interface DashboardProps {
 }
 
 async function DashboardPage({ searchParams }: DashboardProps) {
-  const page = searchParams.page
-    ? parseInt(searchParams as unknown as string, 10)
+  const page = searchParams?.page
+    ? parseInt(searchParams.page as unknown as string, 10)
     : 1;
   const limit = 2;
   const result = await getUserImagesFromDb(page, limit);

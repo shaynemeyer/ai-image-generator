@@ -9,7 +9,7 @@ import { nanoid } from "nanoid";
 import { db } from "@/db/drizzle";
 import { images } from "@/db/schema/image";
 import { currentUserDetails } from "./user";
-import { sql } from "drizzle-orm";
+import { count, sql } from "drizzle-orm";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -113,10 +113,14 @@ export async function getUserImagesFromDb(
       .limit(limit)
       .offset(offset);
 
-    console.log(userEmail, offset, result);
+    const totalCount = await db
+      .select({ count: count() })
+      .from(images)
+      .where(sql`user_email=${userEmail}`);
+
     return {
       images: result,
-      totalCount: result.length,
+      totalCount: totalCount[0].count,
     };
   } catch (error) {
     renderError(error);
