@@ -126,3 +126,16 @@ export async function getUserImagesFromDb(
     renderError(error);
   }
 }
+
+export const getImageFromDb = async (id: string) => {
+  try {
+    const result = await db
+      .select()
+      .from(images)
+      .where(sql`id=${id}`);
+
+    return result[0];
+  } catch (error) {
+    renderError(error);
+  }
+};
