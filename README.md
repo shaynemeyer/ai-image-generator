@@ -21,3 +21,4 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - [PostgreSQL](https://www.postgresql.org/)
 - [Drizzle ORM](https://orm.drizzle.team/)
 - [File Saver](https://www.npmjs.com/package/file-saver) - For downloading images
+- [React Paypal JS](https://www.npmjs.com/package/@paypal/react-paypal-js) - Paypal transactions.
