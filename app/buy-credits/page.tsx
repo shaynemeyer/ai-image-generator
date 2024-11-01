@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { renderError } from "@/lib/errors";
 import { toast } from "@/hooks/use-toast";
 import { saveCreditToDb } from "@/actions/credit";
+import Loader from "@/components/Loader";
 
 function BuyCreditsPage() {
   const [{ isPending }] = usePayPalScriptReducer();
@@ -20,9 +21,6 @@ function BuyCreditsPage() {
     { credits: 50, price: 20 },
   ];
 
-  if (isPending) {
-    return <div className="text-4xl">Loading...</div>;
-  }
   // TODO: figure out this type, replace any
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSuccess = async (details: any) => {
@@ -48,6 +46,10 @@ function BuyCreditsPage() {
   const handleError = (error: Record<string, unknown>) => {
     console.log("Error: ", error);
   };
+
+  if (isPending) {
+    return <Loader />;
+  }
 
   return (
     <div className="container mx-auto p-4">
