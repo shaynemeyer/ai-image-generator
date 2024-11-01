@@ -8,4 +8,5 @@ export const images = pgTable("images", {
   url: text("url"),
   imagePrompt: text("image_prompt"),
   createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
 });

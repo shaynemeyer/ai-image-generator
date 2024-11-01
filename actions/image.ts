@@ -10,6 +10,7 @@ import { db } from "@/db/drizzle";
 import { images } from "@/db/schema/image";
 import { currentUserDetails } from "./user";
 import { count, sql } from "drizzle-orm";
+import { renderError } from "@/lib/errors";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -18,13 +19,6 @@ cloudinary.config({
 });
 
 const cloudinaryFolder = process.env.CLOUDINARY_API_FOLDER;
-
-const renderError = (error: unknown): { message: string } => {
-  console.log(error);
-  return {
-    message: error instanceof Error ? error.message : "An error occurred",
-  };
-};
 
 export async function generateImageAi({
   imagePrompt,

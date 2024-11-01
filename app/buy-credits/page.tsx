@@ -3,6 +3,9 @@ import React from "react";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { renderError } from "@/lib/errors";
+import { toast } from "@/hooks/use-toast";
+import { saveCreditToDb } from "@/actions/credit";
 
 function BuyCreditsPage() {
   const [{ isPending }] = usePayPalScriptReducer();
@@ -22,8 +25,24 @@ function BuyCreditsPage() {
   }
   // TODO: figure out this type, replace any
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleSuccess = (details: any) => {
-    console.log("Payment success!", details);
+  const handleSuccess = async (details: any) => {
+    // console.log("Payment success!", details);
+    const amount = parseFloat(details.purchase_units[0].amount.value);
+    const credits = parseInt(details.purchase_units[0].custom_id, 10);
+
+    try {
+      await saveCreditToDb(amount, credits);
+      toast({
+        description: "Credits purchased successfully",
+        variant: "default",
+      });
+    } catch (error) {
+      renderError(error);
+      toast({
+        description: "Failed to buy credits",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleError = (error: Record<string, unknown>) => {
