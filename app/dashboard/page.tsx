@@ -22,7 +22,6 @@ async function DashboardPage({ searchParams }: DashboardProps) {
   if (!result) return null;
 
   const totalPages = Math.ceil(result?.totalCount / limit);
-  console.log("TotalPages: ", totalPages);
 
   return (
     <div>

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
-import { Divide, LaptopMinimal, LogIn } from "lucide-react";
+import { LaptopMinimal, LogIn } from "lucide-react";
 import { Toaster } from "../ui/toaster";
 import { currentUser } from "@clerk/nextjs/server";
 import { ModeToggle } from "./ModeToggle";

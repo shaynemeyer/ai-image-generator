@@ -54,3 +54,18 @@ export const saveCreditToDb = async (amount: number, credits: number) => {
     renderError(error);
   }
 };
+
+export const getUserCreditsFromDb = async () => {
+  try {
+    const { userEmail } = await currentUserDetails();
+    const result = await db
+      .select()
+      .from(creditsTable)
+      .where(sql`user_email=${userEmail}`);
+
+    console.log("Credits: " + JSON.stringify(result[0]));
+    return result[0];
+  } catch (error) {
+    renderError(error);
+  }
+};

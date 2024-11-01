@@ -4,6 +4,7 @@ import { toast } from "@/hooks/use-toast";
 import { generateImageAi } from "@/actions/image";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import { getUserCreditsFromDb } from "@/actions/credit";
 
 // interface ImageType {
 //   imageUrl: string;
@@ -15,6 +16,8 @@ interface ImageContextType {
   loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   generateImage: (e: React.FormEvent) => void;
+  credits: number;
+  setCredits: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const ImageContext = React.createContext<ImageContextType | undefined>(
@@ -25,8 +28,21 @@ export const ImageProvider = ({ children }: { children: React.ReactNode }) => {
   // state
   const [imagePrompt, setImagePrompt] = React.useState("");
   const [loading, setLoading] = React.useState(false);
+  const [credits, setCredits] = React.useState(0);
+
   const { isSignedIn } = useUser();
   const router = useRouter();
+
+  React.useEffect(() => {
+    getUserCredits();
+  }, []);
+
+  const getUserCredits = async () => {
+    const result = await getUserCreditsFromDb();
+    if (result?.credits) {
+      setCredits(parseInt(result.credits));
+    }
+  };
 
   // functions
   const generateImage = async (e: React.FormEvent) => {
@@ -63,6 +79,8 @@ export const ImageProvider = ({ children }: { children: React.ReactNode }) => {
         loading,
         setLoading,
         generateImage,
+        credits,
+        setCredits,
       }}
     >
       {children}
