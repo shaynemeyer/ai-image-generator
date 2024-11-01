@@ -4,7 +4,7 @@ import { toast } from "@/hooks/use-toast";
 import { generateImageAi } from "@/actions/image";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import { getUserCreditsFromDb } from "@/actions/credit";
+import { checkCreditRecordDb, getUserCreditsFromDb } from "@/actions/credit";
 
 // interface ImageType {
 //   imageUrl: string;
@@ -35,6 +35,10 @@ export const ImageProvider = ({ children }: { children: React.ReactNode }) => {
 
   React.useEffect(() => {
     getUserCredits();
+  }, []);
+
+  React.useEffect(() => {
+    checkCreditRecordDb();
   }, []);
 
   const getUserCredits = async () => {

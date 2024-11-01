@@ -68,3 +68,24 @@ export const getUserCreditsFromDb = async () => {
     renderError(error);
   }
 };
+
+export const checkCreditRecordDb = async () => {
+  try {
+    const { userEmail } = await currentUserDetails();
+
+    const credit = await db
+      .select()
+      .from(creditsTable)
+      .where(sql`user_email=${userEmail}`);
+
+    if (!credit) {
+      await db.insert(creditsTable).values({
+        userEmail,
+        amount: "0",
+        credits: "5",
+      });
+    }
+  } catch (error) {
+    renderError(error);
+  }
+};
