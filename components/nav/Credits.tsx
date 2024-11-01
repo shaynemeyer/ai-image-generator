@@ -5,13 +5,19 @@ import React from "react";
 import { useImage } from "@/context/Image";
 
 function Credits() {
-  const [total, setTotal] = React.useState(0);
-
   const { credits } = useImage();
 
+  const displayCredits = credits > 99 ? "99+" : credits.toString();
+  const badgeColor = credits < 10 ? "bg-red-500" : "bg-green-500";
+
   return (
-    <div>
-      <Coins className="h-8 w-8 text-primary" /> {credits}
+    <div className="relative inline-block">
+      <Coins className="h-8 w-8 text-primary" />
+      <span
+        className={`absolute -top-1 -right-2 ${badgeColor} text-white text-[10px] font-bold rounded-full flex items-center justify-center px-1`}
+      >
+        {displayCredits}
+      </span>
     </div>
   );
 }

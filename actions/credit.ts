@@ -63,7 +63,6 @@ export const getUserCreditsFromDb = async () => {
       .from(creditsTable)
       .where(sql`user_email=${userEmail}`);
 
-    console.log("Credits: " + JSON.stringify(result[0]));
     return result[0];
   } catch (error) {
     renderError(error);

@@ -7,6 +7,7 @@ import { renderError } from "@/lib/errors";
 import { toast } from "@/hooks/use-toast";
 import { saveCreditToDb } from "@/actions/credit";
 import Loader from "@/components/Loader";
+import { useImage } from "@/context/Image";
 
 function BuyCreditsPage() {
   const [{ isPending }] = usePayPalScriptReducer();
@@ -14,6 +15,7 @@ function BuyCreditsPage() {
     credits: 10,
     price: 5,
   });
+  const { credits } = useImage();
 
   const creditOptions = [
     { credits: 10, price: 5 },
@@ -58,6 +60,10 @@ function BuyCreditsPage() {
           <CardTitle className="text-2xl font-bold text-center">
             Buy Credits
           </CardTitle>
+          <p className="text-center">
+            You currently have{" "}
+            <span className="font-bold text-primary">{credits}</span> credits
+          </p>
         </CardHeader>
         <CardContent>
           <div className="flex flex-col gap-2 justify-between mb-6">
