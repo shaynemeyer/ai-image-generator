@@ -18,6 +18,7 @@ interface ImageContextType {
   generateImage: (e: React.FormEvent) => void;
   credits: number;
   setCredits: React.Dispatch<React.SetStateAction<number>>;
+  getUserCredits: () => void;
 }
 
 const ImageContext = React.createContext<ImageContextType | undefined>(
@@ -63,8 +64,20 @@ export const ImageProvider = ({ children }: { children: React.ReactNode }) => {
 
     try {
       const result = await generateImageAi({ imagePrompt });
-      if (result.id) {
+      if (result.id && result.success) {
+        setCredits(parseInt(result.credits as string));
+        toast({
+          description: "Image generated successfully",
+          variant: "default",
+        });
         router.push(`/dashboard/image/${result.id}`);
+      } else {
+        setCredits(credits);
+        toast({
+          description: "Failed to generate image",
+          variant: "destructive",
+        });
+        router.push("/buy-credits");
       }
     } catch (error) {
       toast({
@@ -85,6 +98,7 @@ export const ImageProvider = ({ children }: { children: React.ReactNode }) => {
         generateImage,
         credits,
         setCredits,
+        getUserCredits,
       }}
     >
       {children}

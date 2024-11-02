@@ -15,7 +15,7 @@ function BuyCreditsPage() {
     credits: 10,
     price: 5,
   });
-  const { credits } = useImage();
+  const { credits, getUserCredits } = useImage();
 
   const creditOptions = [
     { credits: 10, price: 5 },
@@ -32,6 +32,8 @@ function BuyCreditsPage() {
 
     try {
       await saveCreditToDb(amount, credits);
+      getUserCredits();
+
       toast({
         description: "Credits purchased successfully",
         variant: "default",

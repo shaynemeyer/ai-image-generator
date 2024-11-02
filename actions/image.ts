@@ -11,6 +11,7 @@ import { images } from "@/db/schema/image";
 import { currentUserDetails } from "./user";
 import { count, sql } from "drizzle-orm";
 import { renderError } from "@/lib/errors";
+import { credits as creditsTable } from "@/db/schema/credits";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -37,6 +38,25 @@ export async function generateImageAi({
   let imageId = 0;
 
   try {
+    // check if user has enough credits
+    const userCredit = await db
+      .select()
+      .from(creditsTable)
+      .where(sql`user_email=${userEmail}`);
+
+    if (!userCredit || parseInt(userCredit[0]?.credits as string) < 1) {
+      return { success: false, id: null, credits: userCredit[0].credits };
+    }
+
+    // reduce credits by 1
+    await db
+      .update(creditsTable)
+      .set({
+        credits: (parseInt(userCredit[0].credits as string) - 1).toString(),
+        updatedAt: new Date(),
+      })
+      .where(sql`id=${userCredit[0].id}`);
+
     const image = await openai.images.generate({
       prompt: imagePrompt,
     });
@@ -80,15 +100,11 @@ export async function generateImageAi({
       })
       .returning();
     imageId = imageResult[0].id!;
+    return { id: imageId, success: true, credits: userCredit[0].credits };
   } catch (error) {
     renderError(error);
+    redirect("/error");
   }
-
-  if (imageId > 0) {
-    return { id: imageId, success: true };
-  }
-
-  redirect("/error");
 }
 
 export async function getUserImagesFromDb(
