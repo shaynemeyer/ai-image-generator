@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+// import { Dialog, DialogContent } from "@/components/ui/dialog";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
@@ -61,9 +61,9 @@ function ImageSlider({ images }: { images: ImageType[] }) {
   const handleMouseEnter = () => setIsHovering(true);
   const handleMouseLeave = () => setIsHovering(false);
 
-  const handleImageLoad = (width: number, height: number) => {
-    setImageDimensions({ width, height });
-  };
+  // const handleImageLoad = (width: number, height: number) => {
+  //   setImageDimensions({ width, height });
+  // };
 
   return (
     <>
@@ -99,7 +99,7 @@ function ImageSlider({ images }: { images: ImageType[] }) {
           </div>
         ))}
       </div>
-      <Dialog
+      {/* <Dialog
         open={!!selectedImage}
         onOpenChange={() => setSelectedImage(null)}
       >
@@ -137,7 +137,7 @@ function ImageSlider({ images }: { images: ImageType[] }) {
             </div>
           )}
         </DialogContent>
-      </Dialog>
+      </Dialog> */}
     </>
   );
 }
