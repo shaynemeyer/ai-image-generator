@@ -17,6 +17,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - Fix chat ui issues.
 - fix theme toggle icon sizing.
 - fix credits bubble being cutoff.
+- add remove image support.
+- add ability to save chat conversations.
 
 ---
 ## What we use
