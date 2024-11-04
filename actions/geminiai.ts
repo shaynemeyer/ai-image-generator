@@ -42,6 +42,6 @@ export async function runGeminiAi(message: string) {
 
   const result = await chatSession.sendMessage(message);
   const response = result.response;
-
+  console.log(JSON.stringify(response));
   return response.text();
 }
