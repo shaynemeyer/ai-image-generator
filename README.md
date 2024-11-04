@@ -12,6 +12,13 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ---
+## Todos
+
+- Fix chat ui issues.
+- fix theme toggle icon sizing.
+- fix credits bubble being cutoff.
+
+---
 ## What we use
 
 - [NextJS 15](https://nextjs.org/)
