@@ -280,7 +280,7 @@ export default async function Home() {
             </h2>
             <div className="max-w-md mx-auto text-center">
               <p className="mb-8 text-gray-200">
-                Have questions or need support? We're here to help!
+                Have questions or need support? We&apos;re here to help!
               </p>
               <Button className="flex items-center justify-center bg-gradient-to-r from-purple-500 to-purple-700 text-white font-semibold text-lg py-4 px-8 rounded-lg shadow-lg hover:from-purple-600 hover:to-purple-800 transition duration-300 w-full max-w-xs mx-auto">
                 <MessageCircleIcon className="w-6 h-6 mr-3" />

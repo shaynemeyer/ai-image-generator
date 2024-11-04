@@ -14,8 +14,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ---
 ## Todos
 
-- Fix chat ui issues.
 - fix theme toggle icon sizing.
+- Add gallery of customer images, need to create the action to fetch the images.
+- Fix chat ui issues.
 - fix credits bubble being cutoff.
 - add remove image support.
 - add ability to save chat conversations.
