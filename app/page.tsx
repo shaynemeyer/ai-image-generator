@@ -167,7 +167,7 @@ export default async function Home() {
           </div>
         </section>
 
-        <section className="relative bg-gradient-to-b from-gray-900 to-gray-800 py-8">
+        {/* <section className="relative bg-gradient-to-b from-gray-900 to-gray-800 py-8">
           <BackgroundPattern className="absolute inset-0" />
           <div className="relative z-10 w-full pb-2">
             <h1 className="font-bold mb-8 text-center text-white">
@@ -175,7 +175,7 @@ export default async function Home() {
             </h1>
             <ImageSlider images={[]} />
           </div>
-        </section>
+        </section> */}
 
         <section className="bg-gradient-to-r from-gray-500 via-white to-gray-500 dark:from-gray-800 dark:via-gray-700 dark:to-gray-900 py-16 sm:py-20">
           <div className="px-4 w-full max-w-6xl mx-auto">
