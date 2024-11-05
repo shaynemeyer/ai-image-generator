@@ -14,7 +14,7 @@ function Credits() {
     <div className="relative inline-block">
       <Coins className="h-8 w-8 text-primary" />
       <span
-        className={`absolute -top-1 -right-2 ${badgeColor} text-white text-[10px] font-bold rounded-full flex items-center justify-center px-1`}
+        className={`absolute top-0 -right-2 ${badgeColor} text-white text-[10px] font-bold rounded-full flex items-center justify-center px-1`}
       >
         {displayCredits}
       </span>

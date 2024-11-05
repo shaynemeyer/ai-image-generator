@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import React from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
@@ -23,11 +23,12 @@ export function ModeToggle() {
       variant="link"
       size="icon"
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      asChild
     >
       {theme === "dark" ? (
-        <Sun className="h-8 w-8 text-primary" />
+        <Sun className="w-8 h-8 text-primary" />
       ) : (
-        <Moon className="h-8 w-8 text-primary" />
+        <Moon className="w-8 h-8 text-primary" />
       )}
     </Button>
   );
