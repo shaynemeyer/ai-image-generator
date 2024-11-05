@@ -3,7 +3,7 @@ import { getUserImagesFromDb } from "@/actions/image";
 import ImageCard from "@/components/cards/ImageCard";
 import Pagination from "@/components/nav/Pagination";
 import { ImageType } from "@/types/image";
-import Link from "next/link";
+
 import React from "react";
 
 interface DashboardProps {
@@ -33,9 +33,11 @@ async function DashboardPage({ searchParams }: DashboardProps) {
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
         {result.images.map((image) => {
           return (
-            <Link href={`/dashboard/image/${image.id}`} key={image.id}>
-              <ImageCard image={image as unknown as ImageType} />
-            </Link>
+            <ImageCard
+              key={image.id}
+              image={image as unknown as ImageType}
+              mode="edit"
+            />
           );
         })}
       </div>
