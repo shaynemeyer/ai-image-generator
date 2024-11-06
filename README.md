@@ -14,14 +14,14 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ![](docs/localhost_3000_.png)
 
 ---
-## Todos
+## Outstanding Issues
 
 - <strike>Fix theme toggle icon sizing.</strike>
 - <strike>Fix credits bubble being cutoff.</strike>
 - Add remove image support.
 - Fix chat ui issues.
 - Add gallery of customer images, need to create the action to fetch the images.
-- add ability to save chat conversations.
+- Add ability to save chat conversations.
 
 ---
 ## What we use

@@ -21,6 +21,24 @@ cloudinary.config({
 
 const cloudinaryFolder = process.env.CLOUDINARY_API_FOLDER;
 
+export async function deleteImageFromDb({ imageId }: { imageId: string }) {
+  console.log(`Deleting image ${imageId}`);
+  await auth.protect();
+
+  const { userEmail } = await currentUserDetails();
+
+  if (!userEmail) {
+    throw new Error("Please login to generate image");
+  }
+  try {
+    await db
+      .delete(images)
+      .where(sql`id=${imageId} and user_email=${userEmail}`);
+  } catch (error) {
+    renderError(error);
+  }
+}
+
 export async function generateImageAi({
   imagePrompt,
 }: {

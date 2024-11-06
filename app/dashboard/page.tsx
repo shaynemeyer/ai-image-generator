@@ -1,11 +1,14 @@
 "use server";
 import { getUserImagesFromDb } from "@/actions/image";
-import ImageCard from "@/components/cards/ImageCard";
+
 import Pagination from "@/components/nav/Pagination";
 import { ImageType } from "@/types/image";
 
 import React from "react";
-
+import dynamic from "next/dynamic";
+const NoSSRImageCard = dynamic(() => import("@/components/cards/ImageCard"), {
+  ssr: false,
+});
 interface DashboardProps {
   searchParams: {
     page?: number;
@@ -33,7 +36,7 @@ async function DashboardPage({ searchParams }: DashboardProps) {
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
         {result.images.map((image) => {
           return (
-            <ImageCard
+            <NoSSRImageCard
               key={image.id}
               image={image as unknown as ImageType}
               mode="edit"
