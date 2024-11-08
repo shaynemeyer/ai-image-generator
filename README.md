@@ -29,7 +29,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 --- 
 ## Attributions
 
-- This project is based on work the excellent NextJS course by Ryan Dhungel on [Udemy](https://www.udemy.com/course/ai-saas-image-generator-chatbot-react-nextjs-typescript/)
+- This project is based on work from the excellent NextJS course by Ryan Dhungel on [Udemy](https://www.udemy.com/course/ai-saas-image-generator-chatbot-react-nextjs-typescript/)
   
 ---
 ## What we use
