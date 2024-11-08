@@ -18,10 +18,13 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 - <strike>Fix theme toggle icon sizing.</strike>
 - <strike>Fix credits bubble being cutoff.</strike>
-- Add remove image support.
-- Fix chat ui issues.
+- <strike>Add remove image support</strike>.
+- Fix Refresh after updating not working properly when deleting images.
+- <strike>Fix chat ui render issues.</strike> 
+- Fix scroll to chat issues.
 - Add gallery of customer images, need to create the action to fetch the images.
 - Add ability to save chat conversations.
+- 
 
 ---
 ## What we use

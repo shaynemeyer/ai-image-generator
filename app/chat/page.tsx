@@ -7,9 +7,10 @@ import {
   ChatBubbleMessage,
 } from "@/components/chat/ChatBubble";
 import { ChatMessageList } from "@/components/chat/ChatMessageList";
+import { currentUserDetails, UserDetails } from "@/actions/user";
 
 import { Button } from "@/components/ui/button";
-import React, { ChangeEvent, useEffect, useRef } from "react";
+import React, { ChangeEvent, useRef } from "react";
 
 // interface Message {
 //   id: number;
@@ -19,10 +20,22 @@ import React, { ChangeEvent, useEffect, useRef } from "react";
 function ChatPage() {
   const [message, setMessage] = React.useState<string>("");
   const [messages, setMessages] = React.useState<MessageType[]>([]);
+  const [user, setUser] = React.useState<UserDetails>();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   const messagesRef = useRef<HTMLDivElement>(null);
-  const formRef = useRef<HTMLFormElement>(null);
+
+  React.useEffect(() => {
+    async function fetchUserDetails() {
+      const response = await currentUserDetails();
+      setUser(response);
+    }
+    fetchUserDetails();
+  }, []);
+
+  if (!user) return null;
+
+  // const formRef = useRef<HTMLFormElement>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -66,17 +79,36 @@ function ChatPage() {
   //   }
   // }, [messages]);
 
+  console.log(user);
+
   return (
-    <div className="max-w-lg mx-auto p-6">
+    <div className="max-w-4xl mx-auto p-6">
       <h1 className="text-2xl font-bold mb-4">Chat with AI Assistant</h1>
-      <div className="chat-box mb-4 max-h-96 overflow-y-auto">
+      <div className="chat-box mb-4 max-h-[600px] overflow-y-auto">
         <ChatMessageList ref={messagesRef}>
           {/* Messages */}
-          {JSON.stringify(messages)}
+          {messages &&
+            messages.map((message) => {
+              return (
+                <ChatBubble
+                  key={message.id}
+                  variant={message.id === 0 ? "received" : "sent"}
+                >
+                  <ChatBubbleAvatar
+                    src={message.id === 0 ? "🤖" : user ? user?.imageUrl : "👤"}
+                    fallback={message.id === 0 ? "🤖" : "👤"}
+                  />
+                  <ChatBubbleMessage>{message.message}</ChatBubbleMessage>
+                </ChatBubble>
+              );
+            })}
           {/* Loading */}
           {isLoading && (
             <ChatBubble variant="received">
-              <ChatBubbleAvatar src="" fallback="🤖" />
+              <ChatBubbleAvatar
+                src={user ? user?.imageUrl : "👤"}
+                fallback="🤖"
+              />
               <ChatBubbleMessage isLoading />
             </ChatBubble>
           )}
