@@ -26,10 +26,15 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - Add ability to save chat conversations.
 - 
 
+--- 
+## Attributions
+
+- This project is based on work the excellent NextJS course by Ryan Dhungel on [Udemy](https://www.udemy.com/course/ai-saas-image-generator-chatbot-react-nextjs-typescript/)
+  
 ---
 ## What we use
 
-- [NextJS 15](https://nextjs.org/)
+- [NextJS 14](https://nextjs.org/)
 - [ShadCN UI](https://ui.shadcn.com/)
 - [TailwindCSS](https://tailwindcss.com/)
 - [Clerk](https://clerk.com/) - for authentication.
